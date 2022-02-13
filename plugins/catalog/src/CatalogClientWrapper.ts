@@ -26,6 +26,8 @@ import {
   GetEntityAncestorsRequest,
   GetEntityAncestorsResponse,
   Location,
+  GetEntityFacetsRequest,
+  GetEntityFacetsResponse,
 } from '@backstage/catalog-client';
 import { IdentityApi } from '@backstage/core-plugin-api';
 
@@ -74,6 +76,16 @@ export class CatalogClientWrapper implements CatalogApi {
   ): Promise<Entity | undefined> {
     return await this.client.getEntityByName(
       compoundName,
+      await this.getCredentials(options),
+    );
+  }
+
+  async getEntityFacets(
+    request: GetEntityFacetsRequest,
+    options?: CatalogRequestOptions,
+  ): Promise<GetEntityFacetsResponse> {
+    return await this.client.getEntityFacets(
+      request,
       await this.getCredentials(options),
     );
   }
